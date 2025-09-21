@@ -3,6 +3,7 @@ package org.example.auth.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.example.auth.service.UserDetailsServiceImpl;
 import org.example.auth.service.AuthService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
