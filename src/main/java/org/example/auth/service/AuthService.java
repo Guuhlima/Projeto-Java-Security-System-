@@ -12,6 +12,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Set;
 import java.util.UUID;
 
+@Service
 public class AuthService {
     private final UserRepository users;
     private final PasswordResetTokenRepository tokens;

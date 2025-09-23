@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login</title>
+    <!-- Tailwind CDN (dev/prototipagem) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gray-50 flex items-center justify-center">
+<main class="w-full max-w-md">
+    <div class="bg-white shadow-sm rounded-2xl p-8 border border-gray-100">
+        <div class="mb-8 text-center">
+            <h1 class="text-2xl font-semibold text-gray-900">Bem-vindo de volta</h1>
+            <p class="mt-1 text-sm text-gray-500">Acesse sua conta para continuar</p>
+        </div>
+
+        <!-- mensagens de erro/sucesso do Spring Security -->
+        <div th:if="${param.error}" class="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+            Usuário ou senha inválidos.
+        </div>
+        <div th:if="${param.logout}" class="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-700">
+            Você saiu com sucesso.
+        </div>
+
+        <form th:action="@{/auth/login}" method="post" class="space-y-5">
+            <!-- CSRF (habilitado por padrão no Spring Security) -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700">Usuário</label>
+                <input id="username" name="username" type="text" required autofocus
+                       class="mt-1 w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+                       placeholder="seu.email@exemplo.com" />
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Senha</label>
+                <input id="password" name="password" type="password" required
+                       class="mt-1 w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+                       placeholder="••••••••" />
+            </div>
+
+            <div class="flex items-center justify-between">
+                <label class="inline-flex items-center gap-2 text-sm text-gray-600">
+                    <input type="checkbox" name="remember-me"
+                           class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                    Lembrar-me
+                </label>
+                <a href="#" class="text-sm text-indigo-600 hover:text-indigo-700 hover:underline">Esqueceu a senha?</a>
+            </div>
+
+            <button type="submit"
+                    class="w-full rounded-lg bg-indigo-600 py-2.5 text-white font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                Entrar
+            </button>
+        </form>
+
+        <p class="mt-6 text-center text-sm text-gray-600">
+            Não tem conta?
+            <a th:href="@{/auth/register}" class="font-medium text-indigo-600 hover:text-indigo-700 hover:underline">Crie uma agora</a>
+        </p>
+    </div>
+
+    <p class="mt-6 text-center text-xs text-gray-500">
+        &copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> — Seu App
+    </p>
+</main>
+</body>
+</html>
