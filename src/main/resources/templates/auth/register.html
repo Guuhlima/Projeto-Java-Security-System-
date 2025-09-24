@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Criar conta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gray-50 flex items-center justify-center">
+<main class="w-full max-w-md">
+    <div class="bg-white shadow-sm rounded-2xl p-8 border border-gray-100">
+        <div class="mb-8 text-center">
+            <h1 class="text-2xl font-semibold text-gray-900">Criar conta</h1>
+            <p class="mt-1 text-sm text-gray-500">Preencha os campos para se registrar</p>
+        </div>
+
+        <div th:if="${error}" class="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700"
+             th:text="${error}">Erro</div>
+        <div th:if="${info}" class="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-700"
+             th:text="${info}">Info</div>
+
+        <form th:action="@{/auth/register}" method="post" class="space-y-5">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">E-mail</label>
+                <input id="email" name="email" type="email" required
+                       class="mt-1 w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+                       placeholder="seu.email@exemplo.com" th:value="${email}" />
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Senha</label>
+                <input id="password" name="password" type="password" required minlength="8"
+                       class="mt-1 w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+                       placeholder="••••••••" />
+                <p class="mt-1 text-xs text-gray-500">Mínimo 8 caracteres. Use letras, números e um símbolo.</p>
+            </div>
+
+            <div>
+                <label for="confirm" class="block text-sm font-medium text-gray-700">Confirmar senha</label>
+                <input id="confirm" name="confirm" type="password" required
+                       class="mt-1 w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-gray-900"
+                       placeholder="••••••••" />
+            </div>
+
+            <button type="submit"
+                    class="w-full rounded-lg bg-indigo-600 py-2.5 text-white font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                Registrar
+            </button>
+        </form>
+
+        <p class="mt-6 text-center text-sm text-gray-600">
+            Já tem conta?
+            <a th:href="@{/auth/login}" class="font-medium text-indigo-600 hover:text-indigo-700 hover:underline">Entrar</a>
+        </p>
+    </div>
+
+    <p class="mt-6 text-center text-xs text-gray-500">
+        &copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> — Security System
+    </p>
+</main>
+</body>
+</html>
